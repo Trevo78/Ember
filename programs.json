@@ -1,0 +1,886 @@
+{
+  "version": 1,
+  "updated": "2026-10-27T21:06:45.834Z",
+  "programs": [
+    {
+      "id": "yoga",
+      "name": "Yoga Flow A",
+      "type": "yoga",
+      "restBetween": 0,
+      "items": [
+        {
+          "k": "section",
+          "name": "Settle and seated"
+        },
+        {
+          "k": "move",
+          "id": "presence",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "neck",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "twist",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "arm",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "butterfly",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "section",
+          "name": "On your back"
+        },
+        {
+          "k": "move",
+          "id": "reach",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "knee",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "supinetwist",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "hamstring",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "fig4",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "wiper",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "section",
+          "name": "Standing"
+        },
+        {
+          "k": "move",
+          "id": "sun",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "fold",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "split",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "sidelunge",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "quad",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "tree",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "standfig4",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "calf",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "triceps",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "warrior1",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "section",
+          "name": "Strength flow"
+        },
+        {
+          "k": "move",
+          "id": "plankflow",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "walkdog",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "pushup",
+          "mode": "reps",
+          "secs": null,
+          "reps": 5,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "pigeon",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "pushup",
+          "mode": "reps",
+          "secs": null,
+          "reps": 5,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "hop",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "sun",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": "Flow through the full sequence."
+        },
+        {
+          "k": "section",
+          "name": "Break"
+        },
+        {
+          "k": "move",
+          "id": "water",
+          "mode": "time",
+          "secs": 120,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "section",
+          "name": "Second half"
+        },
+        {
+          "k": "move",
+          "id": "cobrachild",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "dogflow",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "tripod",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "warrior2",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "triangle",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "sumo",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "dogflow",
+          "mode": "tap",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": "Repeat 5 times."
+        },
+        {
+          "k": "section",
+          "name": "Close"
+        },
+        {
+          "k": "move",
+          "id": "vsit",
+          "mode": "time",
+          "secs": 30,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "savasana",
+          "mode": "time",
+          "secs": 180,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "cali",
+      "name": "Calisthenics A",
+      "type": "bodyweight",
+      "restBetween": 15,
+      "items": [
+        {
+          "k": "section",
+          "name": "Warm-up"
+        },
+        {
+          "k": "move",
+          "id": "circles",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "jacks",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "highknees",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "toetouch",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "group",
+          "name": "Strength",
+          "rounds": 2,
+          "rest": 15,
+          "items": [
+            {
+              "k": "move",
+              "id": "pushup",
+              "mode": "time",
+              "secs": 45,
+              "reps": 10,
+              "miles": null,
+              "sides": false,
+              "note": "Steady pace."
+            },
+            {
+              "k": "move",
+              "id": "squats",
+              "mode": "time",
+              "secs": 45,
+              "reps": null,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "lunges",
+              "mode": "time",
+              "secs": 60,
+              "reps": null,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "dips",
+              "mode": "time",
+              "secs": 45,
+              "reps": null,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "donkey",
+              "mode": "time",
+              "secs": 30,
+              "reps": null,
+              "miles": null,
+              "sides": true,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "k": "section",
+          "name": "Core"
+        },
+        {
+          "k": "move",
+          "id": "plank",
+          "mode": "time",
+          "secs": 45,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "sideplank",
+          "mode": "time",
+          "secs": 30,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "situps",
+          "mode": "time",
+          "secs": 45,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "scissor",
+          "mode": "time",
+          "secs": 45,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "bridge",
+          "mode": "time",
+          "secs": 45,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "climbers",
+          "mode": "time",
+          "secs": 30,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "section",
+          "name": "Cardio finisher"
+        },
+        {
+          "k": "move",
+          "id": "burpees",
+          "mode": "time",
+          "secs": 40,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "jacks",
+          "mode": "time",
+          "secs": 40,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": "Finish strong."
+        },
+        {
+          "k": "move",
+          "id": "breather",
+          "mode": "time",
+          "secs": 40,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "section",
+          "name": "Cool-down"
+        },
+        {
+          "k": "move",
+          "id": "quad",
+          "mode": "time",
+          "secs": 30,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "hamreach",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "twist",
+          "mode": "time",
+          "secs": 30,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "chest",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "child",
+          "mode": "time",
+          "secs": 60,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        }
+      ]
+    },
+    {
+      "id": "gym",
+      "name": "Gym A",
+      "type": "strength",
+      "restBetween": 0,
+      "items": [
+        {
+          "k": "section",
+          "name": "Rowing warm-up"
+        },
+        {
+          "k": "move",
+          "id": "rowing",
+          "mode": "time",
+          "secs": 360,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": "Easy. Find a smooth rhythm: legs, back, arms."
+        },
+        {
+          "k": "move",
+          "id": "rowing",
+          "mode": "time",
+          "secs": 120,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": "Moderate. Pick it up a notch."
+        },
+        {
+          "k": "group",
+          "name": "Strength circuit",
+          "rounds": 3,
+          "rest": 90,
+          "items": [
+            {
+              "k": "move",
+              "id": "legpress",
+              "mode": "reps",
+              "secs": null,
+              "reps": 12,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "pulldown",
+              "mode": "reps",
+              "secs": null,
+              "reps": 12,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "chestpress",
+              "mode": "reps",
+              "secs": null,
+              "reps": 12,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "cablerow",
+              "mode": "reps",
+              "secs": null,
+              "reps": 12,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "shoulder",
+              "mode": "reps",
+              "secs": null,
+              "reps": 10,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            },
+            {
+              "k": "move",
+              "id": "legcurl",
+              "mode": "reps",
+              "secs": null,
+              "reps": 12,
+              "miles": null,
+              "sides": false,
+              "note": ""
+            }
+          ]
+        },
+        {
+          "k": "section",
+          "name": "Core and back care"
+        },
+        {
+          "k": "move",
+          "id": "pallof",
+          "mode": "reps",
+          "secs": null,
+          "reps": 10,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "backext",
+          "mode": "reps",
+          "secs": null,
+          "reps": 12,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "group",
+          "name": "Rowing finisher",
+          "rounds": 5,
+          "rest": 0,
+          "items": [
+            {
+              "k": "move",
+              "id": "rowing",
+              "mode": "time",
+              "secs": 30,
+              "reps": null,
+              "miles": null,
+              "sides": false,
+              "note": "Strong."
+            },
+            {
+              "k": "move",
+              "id": "rowing",
+              "mode": "time",
+              "secs": 30,
+              "reps": null,
+              "miles": null,
+              "sides": false,
+              "note": "Easy, recover."
+            }
+          ]
+        },
+        {
+          "k": "section",
+          "name": "Cool-down"
+        },
+        {
+          "k": "move",
+          "id": "hipflexor",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": true,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "chest",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        },
+        {
+          "k": "move",
+          "id": "child",
+          "mode": "hold",
+          "secs": null,
+          "reps": null,
+          "miles": null,
+          "sides": false,
+          "note": ""
+        }
+      ]
+    }
+  ],
+  "schedule": {
+    "A": {
+      "mon": "run-lower",
+      "tue": "gym",
+      "wed": "swim",
+      "thu": "rot-thu",
+      "fri": "yoga"
+    },
+    "B": {
+      "mon": "run-lower",
+      "tue": "cali",
+      "wed": "bike",
+      "thu": "rot-thu",
+      "fri": "yoga"
+    }
+  }
+}
