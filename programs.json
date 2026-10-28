@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "updated": "2026-10-27T21:06:45.834Z",
+  "updated": "2026-10-28T14:33:07.347Z",
   "programs": [
     {
       "id": "yoga",
-      "name": "Yoga Flow A",
+      "name": "Yoga Flow",
       "type": "yoga",
       "restBetween": 0,
       "items": [
@@ -420,7 +420,7 @@
     },
     {
       "id": "cali",
-      "name": "Calisthenics A",
+      "name": "Calisthenics",
       "type": "bodyweight",
       "restBetween": 15,
       "items": [
@@ -682,7 +682,7 @@
     },
     {
       "id": "gym",
-      "name": "Gym A",
+      "name": "Gym Rat",
       "type": "strength",
       "restBetween": 0,
       "items": [
@@ -871,9 +871,9 @@
     "A": {
       "mon": "run-lower",
       "tue": "gym",
-      "wed": "swim",
-      "thu": "rot-thu",
-      "fri": "yoga"
+      "wed": "yoga",
+      "thu": "swim",
+      "fri": "rot-thu"
     },
     "B": {
       "mon": "run-lower",
