@@ -211,7 +211,21 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
 .p-note { font-size: 14px; color: #D8CCBB; max-width: 34ch; }
 .p-big { font-family: var(--display); font-weight: 300; font-size: 64px; line-height: 1; }
 .p-big small { font-family: var(--body); font-size: 15px; color: var(--muted); }
-.p-side { font-size: 13px; color: var(--amber-soft); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+.p-sidebox { width: 100%; border-radius: 22px; padding: 14px 10px 12px; font-family: var(--body); font-weight: 700; font-size: 68px; line-height: 1; letter-spacing: 0.06em; color: var(--on-amber); display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.p-sidebox small { font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; opacity: 0.75; }
+.p-sidebox.left { background: var(--amber); }
+.p-sidebox.right { background: var(--sage); }
+.p-sidebox.flash { animation: sideflash 0.9s ease-out 2; }
+@keyframes sideflash { 0% { transform: scale(1.06); filter: brightness(1.35); } 100% { transform: scale(1); filter: none; } }
+.p-top-r { display: flex; align-items: center; gap: 12px; }
+.wake { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--sage); }
+.flagbox { width: 100%; min-height: 84px; border-radius: 14px; border: 1px solid var(--line2); background: var(--tile); color: var(--fg); padding: 10px 12px; font: inherit; font-size: 14px; resize: vertical; }
+.flagchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.flagchips button { height: 36px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line2); background: transparent; font-size: 13px; }
+.flagchips button[aria-pressed="true"] { background: var(--amber); color: var(--on-amber); border-color: var(--amber); }
+.flaglist { display: flex; flex-direction: column; gap: 6px; max-height: 220px; overflow-y: auto; }
+.flaglist div { font-size: 12px; color: #D8CCBB; padding: 8px 10px; border-radius: 10px; background: var(--tile); }
+.flaglist b { color: var(--amber-soft); font-weight: 600; }
 .p-ring { width: 100%; height: 6px; border-radius: 3px; background: #3A3129; overflow: hidden; }
 .p-ring i { display: block; height: 100%; background: var(--amber-soft); }
 .p-controls { display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 10px; width: 100%; }
@@ -238,6 +252,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
 
 @media (prefers-reduced-motion: reduce) {
   .row-front, .p-bar i { transition: none; }
+  .p-sidebox.flash { animation: none; }
 }
 </style>
 
@@ -1035,6 +1050,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
     close: '<path d="M6 6l12 12M18 6L6 18"/>',
     play: '<path d="M7 4l13 8-13 8z"/>', pause: '<path d="M8 5v14M16 5v14"/>',
     swap: '<path d="M4 7h13l-3-3M20 17H7l3 3"/>', skip: '<path d="M6 6l12 12M18 6L6 18"/>',
+    flag: '<path d="M5 21V4M5 4h11l-2 4 2 4H5"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/>',
     reroll: '<path d="M4 12a8 8 0 0 1 14-5l2 2M20 12a8 8 0 0 1-14 5l-2-2M20 4v5h-5M4 20v-5h5"/>'
   };
   function icon(name, size, extra) {
@@ -1170,20 +1187,29 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
   /* ---------- audio, wake lock, toast ---------- */
   var ac = null;
   function unlockAudio() { try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume(); } catch (e) { ac = null; } }
-  function chime(final) {
+  /* Sounds: 'next' = one soft bell, 'side' = two quick low knocks, 'final' = rising three-note bell. */
+  var SOUNDS = {
+    next: { type: 'sine', notes: [783.99], gap: 0, len: 1.4, vol: 0.25 },
+    side: { type: 'triangle', notes: [392, 392], gap: 0.18, len: 0.22, vol: 0.4 },
+    final: { type: 'sine', notes: [659.25, 783.99, 987.77], gap: 0.2, len: 1.6, vol: 0.25 }
+  };
+  function chime(kind) {
     if (!ac) return;
-    var notes = final ? [659.25, 987.77] : [783.99];
-    notes.forEach(function (f, i) {
-      var t = ac.currentTime + i * 0.22, o = ac.createOscillator(), g = ac.createGain();
-      o.type = 'sine'; o.frequency.value = f;
-      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.25, t + 0.02); g.gain.exponentialRampToValueAtTime(0.0001, t + 1.4);
-      o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + 1.5);
+    var snd = SOUNDS[kind] || SOUNDS.next;
+    snd.notes.forEach(function (f, i) {
+      var t = ac.currentTime + i * snd.gap, o = ac.createOscillator(), g = ac.createGain();
+      o.type = snd.type; o.frequency.value = f;
+      g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(snd.vol, t + 0.015); g.gain.exponentialRampToValueAtTime(0.0001, t + snd.len);
+      o.connect(g); g.connect(ac.destination); o.start(t); o.stop(t + snd.len + 0.1);
     });
   }
-  var lock = null;
+  /* Keep the screen on during a session. The browser drops the lock whenever the app is hidden, so it is re-requested on return. */
+  var lock = null, wantWake = false;
+  function wakeBadge() { var el = document.querySelector('[data-tick="wake"]'); if (el) el.hidden = !lock; }
   function wake(on) {
+    wantWake = on;
     try {
-      if (on && navigator.wakeLock && !lock) navigator.wakeLock.request('screen').then(function (l) { lock = l; }).catch(function () {});
+      if (on && navigator.wakeLock && !lock) navigator.wakeLock.request('screen').then(function (l) { lock = l; wakeBadge(); l.addEventListener('release', function () { lock = null; wakeBadge(); }); }).catch(function () {});
       if (!on && lock) { lock.release(); lock = null; }
     } catch (e) { lock = null; }
   }
@@ -1338,6 +1364,10 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
         return '<span><i style="background:' + COLS[r[0]] + '"></i>' + r[1] + (total ? ' · <b class="num">' + cnt[r[0]] + '</b>' : ' · ' + r[2]) + '</span>';
       }).join('') + '</div></section>';
 
+    var flags = state.log.filter(function (e) { return e.type === 'flag'; }).slice(-20).reverse();
+    h += '<section class="card settings"><div class="section-head" style="padding:0"><h3 style="font-size:20px">Flags</h3><span class="num">' + flags.length + '</span></div>' +
+      (flags.length ? '<div class="flaglist">' + flags.map(function (e) { return '<div><b>' + esc((E.MOVE[e.key] || {}).name || 'General') + '</b> \u00b7 ' + esc(short(fromKey(e.date))) + '<br>' + esc(e.note) + '</div>'; }).join('') + '</div>' : '<p>Tap the flag in any workout to note something that could be better. Flags also land in your Sheet.</p>') +
+      '<div class="btns" style="flex-wrap:wrap"><button class="btn small" data-act="flag-general">' + icon('flag', 14) + 'New flag</button>' + (flags.length ? '<button class="btn small" data-act="copy-flags">Copy all</button>' : '') + '</div></section>';
     h += '<section class="card settings"><h3 style="font-size:20px">Settings</h3>' +
       '<label class="field" for="set-url">Google Sheet link<input id="set-url" type="url" inputmode="url" autocomplete="off" placeholder="https://script.google.com/macros/s/.../exec" value="' + esc(state.settings.url) + '"></label>' +
       '<label class="field" for="set-hold">Stretch hold, seconds<input id="set-hold" type="number" inputmode="numeric" min="10" max="180" value="' + state.settings.hold + '"></label>' +
@@ -1389,14 +1419,14 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
     renderPlayer();
   }
   function advance() { if (P.idx < P.steps.length - 1) enter(P.idx + 1); else finish(); }
-  function finish() { P.done = true; P.endAt = 0; chime(true); renderPlayer(); }
+  function finish() { P.done = true; P.endAt = 0; chime('final'); renderPlayer(); }
   function tickPlayer() {
     if (!P || P.done || P.paused || !P.endAt) return;
     var ms = P.endAt - Date.now();
     if (ms <= 0) {
       var s = P.steps[P.idx];
-      if (hasSides(s) && P.side === 0) { P.side = 1; chime(false); var secs = stepSecs(s); P.endAt = Date.now() + secs * 1000; renderPlayer(); }
-      else { chime(P.idx === P.steps.length - 1); advance(); }
+      if (hasSides(s) && P.side === 0) { P.side = 1; chime('side'); var secs = stepSecs(s); P.endAt = Date.now() + secs * 1000; P.flash = true; renderPlayer(); }
+      else { if (P.idx < P.steps.length - 1) chime('next'); advance(); }
       return;
     }
     P.left = ms / 1000;
@@ -1412,26 +1442,33 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
     }
     var secs = stepSecs(s), sides = hasSides(s);
     var big;
-    if (secs) big = '<div class="p-big num" data-tick="p-left">' + mmss(Math.ceil(P.left)) + '</div>' + (sides ? '<div class="p-side">' + (P.side === 0 ? 'First side' : 'Second side') + '</div>' : '') + '<div class="p-ring"><i data-tick="p-ring" style="width:0%"></i></div>';
+    if (secs) big = '<div class="p-big num" data-tick="p-left">' + mmss(Math.ceil(P.left)) + '</div>' + '' + '<div class="p-ring"><i data-tick="p-ring" style="width:0%"></i></div>';
     else big = '<div class="p-big num">' + (s.label ? esc(s.label.split(' ')[0]) + '<small> ' + esc(s.label.split(' ').slice(1).join(' ')) + '</small>' : '<small>At your pace</small>') + '</div>';
     var nexts = P.steps.slice(P.idx + 1).filter(function (x) { return !x.rest; }).slice(0, 3);
     var chap = s.ch + (s.round ? ' · Round ' + s.round + ' of ' + s.rounds : '');
     overlay.innerHTML = '<div class="player">' +
-      '<div class="p-top"><button class="iconbtn" data-act="p-close" aria-label="Close session">' + icon('close') + '</button><span class="p-clock num" data-tick="p-clock">0:00</span></div>' +
+      '<div class="p-top"><button class="iconbtn" data-act="p-close" aria-label="Close session">' + icon('close') + '</button><span class="wake" data-tick="wake"' + (lock ? '' : ' hidden') + '>' + icon('sun', 14) + 'Screen stays on</span><span class="p-top-r"><button class="iconbtn" data-act="flag" aria-label="Flag an issue with this move">' + icon('flag') + '</button><span class="p-clock num" data-tick="p-clock">0:00</span></span></div>' +
       '<div class="p-prog"><div class="p-prog-row"><span>' + esc(chap) + '</span><span class="num">' + (P.idx + 1) + ' of ' + total + '</span></div><div class="p-bar"><i style="width:' + Math.round(P.idx / total * 100) + '%"></i></div></div>' +
       '<section class="card p-now"><div class="p-art"><figure>' + E.anim.svg(s.id, 'side') + '<figcaption>Side</figcaption></figure><figure>' + E.anim.svg(s.id, 'second') + '<figcaption>' + (E.anim.view2Of(s.id) === 'top' ? 'Top' : 'Front') + '</figcaption></figure></div><div class="eyebrow">' + (s.rest ? 'Rest' : 'Now') + '</div><h2 class="p-name">' + esc(s.name) + '</h2>' +
-      (s.note ? '<p class="p-note">' + esc(s.note) + '</p>' : '') + big +
+      (s.note ? '<p class="p-note">' + esc(s.note) + '</p>' : '') +
+      (sides ? '<div class="p-sidebox ' + (P.side === 0 ? 'left' : 'right') + (P.flash ? ' flash' : '') + '" role="status">' + (P.side === 0 ? 'LEFT' : 'RIGHT') + '<small>' + (P.side === 0 ? 'then right' : 'second side') + '</small></div>' : '') + big +
       '<div class="p-controls"><button class="btn" data-act="p-prev" aria-label="Previous move" style="padding:0">' + icon('left') + '</button>' +
       (secs ? '<button class="btn" data-act="p-pause" style="gap:8px">' + (P.paused ? icon('play', 14) + 'Resume' : icon('pause', 14) + 'Pause') + '</button>' : '<button class="btn primary" data-act="p-next">Done, next</button>') +
       '<button class="btn" data-act="p-next" aria-label="Skip to next move" style="padding:0">' + icon('right') + '</button></div></section>' +
       (nexts.length ? '<section class="p-next"><h3>Up next</h3>' + nexts.map(function (n) { return '<div>' + E.anim.svg(n.id, 'side') + '<span>' + esc(n.name) + '</span><em class="num">' + nextLabel(n) + '</em></div>'; }).join('') + '</section>' : '') +
       '</div>';
+    P.flash = false;
     tickUI();
   }
   function nextLabel(n) {
     if (n.label) return n.label;
     if (n.kind === 'timer') return (n.secs >= 60 ? mmss(n.secs) : n.secs + 's') + (n.sides ? ' each side' : '');
     return 'At your pace';
+  }
+  var flagCtx = null;
+  function resumeAfterFlag() {
+    if (flagCtx && flagCtx.resume && P && !P.done && P.paused) { P.paused = false; P.endAt = Date.now() + P.left * 1000; renderPlayer(); }
+    flagCtx = null;
   }
   function closeOverlay() { overlay.hidden = true; overlay.innerHTML = ''; document.body.style.overflow = ''; P = null; Q = null; wake(false); }
 
@@ -1477,7 +1514,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
     }
   }
   setInterval(function () { tickPlayer(); tickUI(); }, 250);
-  document.addEventListener('visibilitychange', function () { if (!document.hidden) { if (P && !P.done) wake(true); render(); loadPrograms(); } });
+  document.addEventListener('visibilitychange', function () { if (!document.hidden) { if (wantWake) wake(true); if (!P && !Q) render(); loadPrograms(); } });
 
   /* ---------- actions ---------- */
   function logSession(dk, key, minutes, extra) {
@@ -1508,7 +1545,38 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
       case 'close-row': openRow = null; render(); break;
       case 'weekend-log': openSheet('<h3>Log a weekend activity</h3><p>Optional, and it all counts toward the 100 miles where it applies.</p>' + WEEKEND_LOG.concat(progKeys()).map(function (k) { return optBtn(k, 'weekend-pick', dk); }).join('')); break;
       case 'weekend-pick': closeSheet(); if (sOf(t.dataset.key).type === 'player') openPlayer(t.dataset.key, dk, 'session'); else openPlan(t.dataset.key, dk, false); break;
-      case 'sheet-close': closeSheet(); break;
+      case 'sheet-close': closeSheet(); resumeAfterFlag(); break;
+      case 'flag': {
+        var running = P && !P.done && !P.paused && P.endAt;
+        if (running) { P.left = Math.max(0, (P.endAt - Date.now()) / 1000); P.paused = true; renderPlayer(); }
+        var st = P && P.steps[P.idx];
+        flagCtx = { id: st ? st.id : '', name: st ? st.name : 'Ember', where: P ? P.title + ', step ' + (P.idx + 1) + (st && hasSides(st) ? ' (' + (P.side ? 'right' : 'left') + ' side)' : '') : '', resume: !!running, chip: '' };
+        openSheet('<h3>Flag an issue</h3><p>' + esc(flagCtx.name) + (flagCtx.where ? ' \u00b7 ' + esc(flagCtx.where) : '') + '</p><div class="flagchips">' +
+          ['Animation looks off', 'Wrong cue', 'Timing', 'Too hard', 'Too easy', 'Other'].map(function (c) { return '<button type="button" data-act="flag-chip" data-chip="' + c + '" aria-pressed="false">' + c + '</button>'; }).join('') +
+          '</div><label for="flag-note" class="field">Details (optional)</label><textarea id="flag-note" class="flagbox" placeholder="What could be better?"></textarea><button class="btn primary" data-act="flag-save" style="width:100%;flex:none">Save flag</button>');
+        break;
+      }
+      case 'flag-chip': {
+        var on = t.getAttribute('aria-pressed') !== 'true';
+        document.querySelectorAll('[data-act="flag-chip"]').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+        t.setAttribute('aria-pressed', on ? 'true' : 'false'); flagCtx.chip = on ? t.dataset.chip : ''; break;
+      }
+      case 'flag-save': {
+        var txt = (document.getElementById('flag-note') || {}).value || '';
+        if (!flagCtx.chip && !txt.trim()) { toast('Pick a reason or type a note.'); break; }
+        var note = (flagCtx.chip ? flagCtx.chip + (txt.trim() ? ': ' : '') : '') + txt.trim() + (flagCtx.where ? ' | ' + flagCtx.where : '');
+        addEntry({ type: 'flag', date: keyOf(today()), key: flagCtx.id, status: 'open', minutes: '', miles: '', note: note });
+        closeSheet(); resumeAfterFlag(); toast('Flag saved to your Sheet.'); if (!P && tab === 'streak') render(); break;
+      }
+      case 'copy-flags': {
+        var txt2 = state.log.filter(function (e) { return e.type === 'flag'; }).map(function (e) { return e.date + ' \u00b7 ' + ((E.MOVE[e.key] || {}).name || e.key || 'General') + ' \u00b7 ' + e.note; }).join('\n');
+        try { navigator.clipboard.writeText(txt2).then(function () { toast('Flags copied.'); }, function () { toast('Couldn\u2019t copy. They\u2019re also in your Sheet.'); }); } catch (e) { toast('They\u2019re in your Sheet under Type: flag.'); }
+        break;
+      }
+      case 'flag-general':
+        flagCtx = { id: '', name: 'General', where: '', resume: false, chip: '' };
+        openSheet('<h3>Flag an issue</h3><p>Anything in Ember that could be better.</p><div class="flagchips">' + ['Animation looks off', 'Wrong cue', 'Timing', 'Layout', 'Idea', 'Other'].map(function (c) { return '<button type="button" data-act="flag-chip" data-chip="' + c + '" aria-pressed="false">' + c + '</button>'; }).join('') + '</div><label for="flag-note" class="field">Details (optional)</label><textarea id="flag-note" class="flagbox" placeholder="What could be better?"></textarea><button class="btn primary" data-act="flag-save" style="width:100%;flex:none">Save flag</button>');
+        break;
       case 'mini-toggle': {
         var tk = keyOf(today()), k = t.dataset.key, m = miniOf(tk, k);
         if (m) removeEntry(m);
