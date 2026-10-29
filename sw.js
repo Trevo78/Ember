@@ -1,6 +1,6 @@
 // Ember offline support: keeps the app working at the gym or pool with no signal.
 // Bump VERSION whenever the app files change so phones pick up the update.
-var VERSION = 'ember-v7';
+var VERSION = 'ember-v8';
 var FILES = ['./', './index.html', './builder.html', './programs.json', './manifest.webmanifest', './icon.svg', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {

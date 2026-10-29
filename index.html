@@ -355,6 +355,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
     mv('quad', 'Standing quad stretch', 'stretch', 'hold', null, true, 'Hold ankle behind you, heel toward glute.', 'stand'),
     mv('calf', 'Standing calf stretch', 'stretch', 'hold', null, true, 'One leg back, heel down; lean forward.', 'lunge'),
     mv('triceps', 'Standing triceps stretch', 'stretch', 'hold', null, true, 'Hand behind head; the other hand assists.', 'armsup'),
+    mv('wgs', 'World\u2019s greatest stretch', 'stretch', 'time', 40, true, 'Lunge, hands down. Drop the inside elbow to your instep, then rotate and reach that arm to the sky. 5 slow reps.', 'lunge'),
     mv('child', 'Child’s pose', 'stretch', 'hold', null, false, 'Breathe into the back.', 'child'),
     mv('sphinx', 'Sphinx', 'stretch', 'hold', null, false, 'Forearms down, chest open.', 'cobra'),
     mv('thread', 'Thread the needle', 'stretch', 'hold', null, true, 'From all fours, arm under and through.', 'catcow'),
@@ -787,6 +788,11 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
   def('quad', { side: [s({ nth: -10, nsh: 170, nft: 180, nua: -20, nfa: -25, fua: 90, sfua: 0.4, ffa: 90 }), s({ nth: -18, nsh: 165, nft: 180, nua: -26, nfa: -30, fua: 90, sfua: 0.4, ffa: 90 })], front: [f({ rt: 0, srt: 0.9, rs: 180, srs: 0.15, ru: 10, rf: 0, lu: -90, lf: -90 }), f({ rt: 0, srt: 0.85, rs: 180, srs: 0.2, ru: 10, rf: 0, lu: -90, lf: -90 })], dur: 4 });
   def('calf', { side: [s({ t: 160, nth: 30, nsh: -10, fth: -30, fsh: -28, nua: 85, nfa: 90, fua: 83, ffa: 88 }), s({ t: 150, nth: 38, nsh: -16, fth: -32, fsh: -30, nua: 88, nfa: 90, fua: 86, ffa: 88 })], front: [f({ ru: 20, sru: 0.5, rf: 30, lu: -20, slu: 0.5, lf: -30, rt: 5, rs: 0, lt: -4, slt: 0.9, ls: -2 }), f({ ru: 20, sru: 0.4, rf: 30, lu: -20, slu: 0.4, lf: -30, rt: 5, srt: 0.85, rs: 0, lt: -4, slt: 0.9, ls: -2 })], dur: 4 });
   def('triceps', { side: [s({ nua: 172, nfa: -10, fua: 160, ffa: 200 }), s({ nua: 178, nfa: -15, fua: 165, ffa: 205 })], front: [f({ ru: 160, rf: -20, lu: -150, lf: 110 }), f({ ru: 168, rf: -25, lu: -155, lf: 108 })], dur: 4 });
+  var WGS1 = s({ t: 118, h: 128, nth: 82, nsh: -6, fth: -62, fsh: -64, fft: -15, nua: 2, nfa: 0, fua: 4, ffa: 2 });
+  var WGS2 = x(WGS1, { t: 100, h: 110, nua: -8, nfa: 75, fua: 6, ffa: 2 });
+  var WGS3 = x(WGS1, { t: 128, h: 165, nua: 178, nfa: 180, fua: 4, ffa: 2 });
+  var FW1 = f({ st: 0.65, hy: 3, rt: 6, srt: 0.45, rs: 0, srs: 0.95, lt: -6, slt: 0.35, ls: 0, sls: 0.55, ru: 4, rf: 0, lu: -4, lf: 0 });
+  def('wgs', { side: [WGS1, WGS2, WGS1, WGS3], front: [FW1, x(FW1, { st: 0.5, hy: 6, ru: 20, sru: 0.6, rf: -60, srf: 0.6 }), FW1, x(FW1, { t: 170, st: 0.75, h: 165, ru: 172, rf: 176 })], loop: 'cycle', dur: 7 });
   def('child', hold(CHILD, x(T_SUP, { rot: 90, ru: 178, rf: 178, lu: -178, lf: -178, rt: 10, srt: 0.4, lt: -10, slt: 0.4, rs: 0, srs: 0.3, ls: 0, sls: 0.3 }), { view2: 'top' }));
   def('sphinx', hold(x(UPDOG, { t: 104, h: 125, nth: -88, fth: -88, nsh: -90, fsh: -90, nua: 0, snua: 0.6, nfa: 90, fua: 0, sfua: 0.6, ffa: 90 }), x(F_PLANK, { st: 0.5, hy: -2, ru: 0, sru: 0.6, rf: 0, srf: 0.2, lu: 0, slu: 0.6, lf: 0, slf: 0.2 })));
   def('thread', { side: [QUAD, x(QUAD, { t: 98, h: 60, nua: -60, snua: 0.4, nfa: -80, snfa: 0.4 })], front: [F_QUAD, x(F_QUAD, { t: 160, hy: 8, ru: -70, rf: -85, hx: -6 })], dur: 4 });
@@ -1282,7 +1288,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
     h += '<section class="section"><div class="section-head"><h3>Daily minis</h3><span class="blocks" role="img" aria-label="' + miniCount(dk) + ' of ' + MINIS.length + ' done">' + blocks + '</span></div>';
     h += miniRow('lift', lift, 'Dumbbell lift', 'Ground to overhead, 10 each arm', '<span class="hint num">30 lb</span>');
     h += miniRow('pushups', miniOf(dk, 'pushups'), 'Push-ups', '10 reps', '<span class="hint num">10</span>');
-    h += miniRow('fitz', miniOf(dk, 'fitz'), 'Fitz stretches', '5 each side', '<span class="hint num">5 + 5</span>');
+    h += miniRow('fitz', miniOf(dk, 'fitz'), 'Fitz stretches', 'World\u2019s greatest stretch, 5 each side', miniOf(dk, 'fitz') ? '<span class="hint">done</span>' : '<button class="chip" data-act="fitz-start">' + icon('play', 12) + 'Start</button>');
     var walkCtl;
     if (walk) walkCtl = '<span class="hint num">' + walk.minutes + ' min</span>';
     else if (state.walk && state.walk.date === dk) walkCtl = '<button class="chip live num" data-act="walk-stop" aria-label="Stop walk timer">' + icon('pause', 12) + '<span data-tick="walk">0:00</span></button>';
@@ -1406,8 +1412,8 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
   function stepSecs(s) { return s.kind === 'timer' ? Number(s.secs) || 0 : 0; }
   function openPlayer(key, dk, mode) {
     unlockAudio(); wake(true);
-    var steps = mode === 'back' ? backSteps(dk) : sOf(key).steps(dk);
-    P = { key: key, dk: dk, mode: mode, title: mode === 'back' ? 'Back routine' : sOf(key).title, steps: steps, idx: 0, side: 0, endAt: 0, left: 0, paused: false, started: Date.now(), done: false };
+    var steps = mode === 'back' ? backSteps(dk) : mode === 'fitz' ? E.flatten({ name: 'Fitz stretches', items: [E.newItem('wgs')] }, holdSecs()) : sOf(key).steps(dk);
+    P = { key: key, dk: dk, mode: mode, title: mode === 'back' ? 'Back routine' : mode === 'fitz' ? 'Fitz stretches' : sOf(key).title, steps: steps, idx: 0, side: 0, endAt: 0, left: 0, paused: false, started: Date.now(), done: false };
     overlay.hidden = false; document.body.style.overflow = 'hidden';
     enter(0);
   }
@@ -1592,6 +1598,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
         render(); break;
       }
       case 'back-start': openPlayer(null, keyOf(today()), 'back'); break;
+      case 'fitz-start': openPlayer(null, keyOf(today()), 'fitz'); break;
       case 'reroll': { var rk = keyOf(today()); state.reroll[rk] = (state.reroll[rk] || 0) + 1; save(); render(); break; }
       case 'p-close': if (P && !P.done && P.idx > 0) { P.paused = true; renderPlayer(); openSheet('<h3>Leave this session?</h3><p>Progress in this session won’t be saved.</p><button class="btn primary" data-act="p-quit" style="width:100%;flex:none">Leave session</button>'); } else closeOverlay(); break;
       case 'p-quit': closeSheet(); closeOverlay(); break;
@@ -1603,7 +1610,7 @@ h1, h2, h3 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap
         renderPlayer(); break;
       case 'p-save': {
         var minutes = Number(t.dataset.min);
-        if (P.mode === 'back') { var ex = miniOf(P.dk, 'back'); if (!ex) addEntry({ type: 'mini', date: P.dk, key: 'back', status: 'done', minutes: minutes }); }
+        if (P.mode === 'back' || P.mode === 'fitz') { var ex = miniOf(P.dk, P.mode); if (!ex) addEntry({ type: 'mini', date: P.dk, key: P.mode, status: 'done', minutes: minutes }); }
         else logSession(P.dk, P.key, minutes);
         closeOverlay(); render(); toast('Saved.'); break;
       }
